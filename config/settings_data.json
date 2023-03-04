@@ -131,7 +131,6 @@
         "type": "header",
         "settings": {
           "color_scheme": "accent-2",
-          "logo": "{{ shop.brand.logo }}",
           "logo_width": 90,
           "logo_position": "middle-left",
           "menu": "main-menu",
