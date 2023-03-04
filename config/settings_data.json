@@ -4,7 +4,7 @@
     "colors_accent_1": "#1878b9",
     "gradient_accent_1": "",
     "colors_accent_2": "#334fb4",
-    "gradient_accent_2": "linear-gradient(280deg, rgba(33, 81, 113, 1) 16%, rgba(37, 151, 188, 1) 86%)",
+    "gradient_accent_2": "linear-gradient(280deg, rgba(29, 109, 163, 1) 16%, rgba(37, 151, 188, 1) 86%)",
     "colors_text": "#121212",
     "colors_outline_button_labels": "#121212",
     "colors_background_1": "#ffffff",
@@ -118,7 +118,7 @@
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
     "currency_code_enabled": true,
-    "cart_type": "notification",
+    "cart_type": "page",
     "show_vendor": false,
     "show_cart_note": false,
     "sections": {
@@ -144,7 +144,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "color_scheme": "background-1",
+          "color_scheme": "accent-2",
           "logo": "{{ shop.brand.logo }}",
           "logo_width": 90,
           "logo_position": "middle-left",
