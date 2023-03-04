@@ -402,7 +402,7 @@
               
               
              
-                <label for="quantity">Bulk Quantity Selector</label>
+                <label for="quantity">Quantity</label>
                 <quantity-input class="quantity">
                   <button class="quantity__button no-js-hidden" name="minus" type="button">
                     <span class="visually-hidden">
@@ -1337,7 +1337,7 @@
 
     var firstminmaxvalue = extractMinMax(selected_variants_json[group_option_index_value])
     var outputElementInputFirst = document.querySelector('#quantity_group')
-    outputElementInputFirst.innerHTML = QuantityInputTemplate(firstminmaxvalue['min'],firstminmaxvalue['max'],firstminmaxvalue['min'],1,'no_bulk_selection_input','grey')
+    outputElementInputFirst.innerHTML = QuantityInputTemplate(firstminmaxvalue['min'],firstminmaxvalue['max'],firstminmaxvalue['min'],1,'no_bulk_selection_input','')
   }
   
   function GetNoBulkQuantitySelector(){
@@ -1372,7 +1372,7 @@
           outputElementInput.remove()
         }
         //Adding quantity selector that maps min and max according to the group 
-        outputElement.innerHTML  =  QuantityInputTemplate(minmaxvalue['min'],minmaxvalue['max'],minmaxvalue['min'],1,'bulk_quantity_input','red');
+        outputElement.innerHTML  =  QuantityInputTemplate(minmaxvalue['min'],minmaxvalue['max'],minmaxvalue['min'],1,'bulk_quantity_input','');
       }
       
     });
