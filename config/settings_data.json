@@ -1,8 +1,8 @@
 {
   "current": {
     "colors_solid_button_labels": "#ffffff",
-    "colors_accent_1": "#1878b9",
-    "gradient_accent_1": "",
+    "colors_accent_1": "#86ccfc",
+    "gradient_accent_1": "linear-gradient(298deg, rgba(40, 132, 194, 1) 19%, rgba(156, 215, 253, 1) 100%)",
     "colors_accent_2": "#334fb4",
     "gradient_accent_2": "linear-gradient(280deg, rgba(29, 109, 163, 1) 16%, rgba(37, 151, 188, 1) 86%)",
     "colors_text": "#121212",
@@ -13,7 +13,7 @@
     "gradient_background_2": "",
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
-    "type_body_font": "assistant_n4",
+    "type_body_font": "lato_n4",
     "body_scale": 100,
     "page_width": 1100,
     "spacing_sections": 0,
@@ -125,18 +125,18 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
-          "announcement-bar-0": {
+          "7adde173-b306-4277-a4d7-bae97b69ca38": {
             "type": "announcement",
             "settings": {
-              "text": "Welcome to our store",
+              "text": "Source 2023's latest products for exclusive prices.",
               "text_alignment": "center",
-              "color_scheme": "background-1",
-              "link": ""
+              "color_scheme": "accent-2",
+              "link": "shopify:\/\/pages\/contact"
             }
           }
         },
         "block_order": [
-          "announcement-bar-0"
+          "7adde173-b306-4277-a4d7-bae97b69ca38"
         ],
         "settings": {
         }
@@ -144,7 +144,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "color_scheme": "accent-2",
+          "color_scheme": "accent-1",
           "logo": "{{ shop.brand.logo }}",
           "logo_width": 90,
           "logo_position": "middle-left",
@@ -153,8 +153,8 @@
           "show_line_separator": true,
           "enable_sticky_header": true,
           "mobile_logo_position": "center",
-          "margin_bottom": 0,
-          "padding_top": 8,
+          "margin_bottom": 8,
+          "padding_top": 16,
           "padding_bottom": 8
         }
       },
