@@ -205,11 +205,19 @@
                           <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                           {% render 'icon-minus' %}
                         </button>
+                        
+                        {% assign min_quantity =  item.product.metafields.wholesale.minimum_quantity %} 
+                        {% if min_quantity == blank %}
+                          {%  assign  min_quantity = 1 %}
+                        {% endif %}
+
                         <input class="quantity__input"
                           type="number"
                           name="updates[]"
                           value="{{ item.quantity }}"
-                          min="0"
+                          min="{{ min_quantity }}"
+                          step="{{ min_quantity }}"
+                          onkeydown="return false"
                           aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
                           id="Quantity-{{ item.index | plus: 1 }}"
                           data-index="{{ item.index | plus: 1 }}"

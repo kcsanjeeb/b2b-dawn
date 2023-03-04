@@ -426,11 +426,11 @@
         
              
 
-                {% comment %} <label class="form__label" for="Quantity-{{ section.id }}">
+                <label class="form__label" for="Quantity-{{ section.id }}">
                   {{ 'products.product.quantity.label' | t }}
-                </label> {% endcomment %}
+                </label>
 
-                 {% comment %} <quantity-input class="quantity">
+                 <quantity-input class="quantity">
                   <button class="quantity__button no-js-hidden" name="minus" type="button">
                     <span class="visually-hidden">
                       {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
@@ -459,7 +459,7 @@
                     </span>
                     {% render 'icon-plus' %}
                   </button>
-                </quantity-input>  {% endcomment %}
+                </quantity-input> 
               </div>
 
               
@@ -551,7 +551,7 @@
                             {% endif %}
                           >
                           <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                            {{ value }} 
+                            {{ value }} {{ 'hry' }}
                           </label>
                         {%- endfor -%}
                       </fieldset>
@@ -1225,24 +1225,7 @@
   </script>
 
   <script>
-  //A funciton to check validity of a number 
-  function isValidNumber(value) {
-    // Check if the value is not null, undefined, or blank
-    if (value === null || value === undefined || value === '') {
-      return false;
-    }
-    // Check if the value is not NaN
-    if (isNaN(value)) {
-      return false;
-    }
-    // Check if the value is an integer or a float
-    const parsedValue = parseFloat(value);
-    if (!Number.isInteger(parsedValue) && !Number.isFinite(parsedValue)) {
-      return false;
-    }
-    return true;
-  }
-  //This is for getting the max and the min value from the price group
+    //This is for getting the max and the min value from the price group
   function extractMinMax(str) {
       let regex = /(\d+(?:\.\d+)?)/g;
       let matches = str.match(regex);
@@ -1250,48 +1233,20 @@
       let max = null;
 
       if (str.includes("<=")) {
-        max = parseFloat(matches[0]);
-        min = parseFloat(matches[1]);
-        console.log('for <= ',max,min)
-      } else if (str.includes(">=")){
+        max = parseFloat(matches[1]);
+        min = parseFloat(matches[0]);
+      } else if (str.includes(">=")) {
         max = parseFloat(matches[1]);
         min = parseFloat(matches[0]);
       } else if (str.includes("<")) {
-        max = parseFloat(matches[0]) - 1;
-        min = parseFloat(matches[1]);
-        console.log('for <', max,min)
+        max = parseFloat(matches[1]);
+        min = parseFloat(matches[0]) + 1;
       } else if (str.includes(">")) {
         max = parseFloat(matches[1]) - 1;
-        min = parseFloat(matches[0]) + 1;
-        console.log('for >', max,min)
+        min = parseFloat(matches[0]);
       } else if (str.includes("-")) {
         min = parseFloat(matches[0]);
         max = parseFloat(matches[1]);
-        
-      }
-      //Fetching min and max from metafields of product
-      fetchedMin = `{{ product.metafields.wholesale.minimum_quantity }}`
-      fetchedMax = `{{ product.metafields.wholesale.maximum_quantity }}`
-      console.log('fetchedMin',fetchedMin, 'fetchedMax', fetchedMax)
-      //Checking minimum value
-      if(isValidNumber(min)){
-        console.log('this is min', min, isValidNumber(min))
-      }else{
-        console.log('this is not valid min', min, isValidNumber(min))
-        if(isValidNumber(fetchedMin)){
-          console.log('fetched min is ::',fetchedMin)
-          min = parseFloat(fetchedMin)
-        }
-      }
-      //Checking maximum value
-      if(isValidNumber(max)){
-        console.log('this is max', max, isValidNumber(max))
-      }else{
-        console.log('this is not valid max', max, isValidNumber(max))
-        if(isValidNumber(fetchedMax)){
-          console.log('fetched max is ::',fetchedMax)
-          max = parseFloat(fetchedMax)
-        }
       }
 
       return {
@@ -1302,79 +1257,50 @@
       
   const radioInputs = document.querySelectorAll('.js input[type="radio"]');
   
-
-
-  function CheckIfGroupExists(){
-    const productOptions = `{{ product.options | json}}`;
-    if(Object.values(JSON.parse(productOptions)).includes("group")){
-      return true ;
-    }else{
-      return false ; 
-    }
-  }
-
-  function QuantityInputTemplate(min,max,val,step,classname,color){
-    return `<input style="background-color:`+color+`" class="quantity__input `+classname+`" type="number" name="quantity" id="Quantity-{{ section.id }}" min=`+min+` max=`+max+` value=`+val+` step=`+step+`  form="{{ product_form_id }}">`
-  }
-
-
-
   function GetBulkQuantitySelector(){
-    
-    var firstOptionName = "{{ product.selected_or_first_available_variant.options[0] }}";
 
-    const groupOptionIndex = JSON.parse(`{{ product.options | json }}`);
-    let index = groupOptionIndex.indexOf("group");
-
-    const option_with_value_json = JSON.parse(`{{ product.options_with_values | json }}`)
-    console.log('option_with_value_json',option_with_value_json)
-
-    const selected_variants_json = JSON.parse(`{{ product.selected_or_first_available_variant | json }}`)
-    console.log('selected_variants_json',selected_variants_json)
-    
-    const group_option_index_value = 'option'+(index+1)
-    console.log('~~~~~~',selected_variants_json[group_option_index_value])
-
-    var firstminmaxvalue = extractMinMax(selected_variants_json[group_option_index_value])
-    var outputElementInputFirst = document.querySelector('#quantity_group')
-    outputElementInputFirst.innerHTML = QuantityInputTemplate(firstminmaxvalue['min'],firstminmaxvalue['max'],firstminmaxvalue['min'],1,'no_bulk_selection_input','grey')
   }
-  
   function GetNoBulkQuantitySelector(){
-    var outputElementInputFirst = document.querySelector('#quantity_group')
-      outputElementInputFirst.innerHTML = QuantityInputTemplate(1,10,2,1,'no_bulk_selection_input','yellow')
+    
   }
 
   window.addEventListener("load", (event) => {
-    if(CheckIfGroupExists() == true){
+
+    const productOptions = `{{ product.options | json}}`;
+    console.log('---Product Variant Options---', JSON.parse(productOptions))
+    // Check if the object include the "group" option
+    if(Object.values(JSON.parse(productOptions)).includes("group")){
       console.log('---This product has Group---');
-      GetBulkQuantitySelector()
+      var firstOptionName = "{{ product.selected_or_first_available_variant.options[0] }}";
+      var firstminmaxvalue = extractMinMax(firstOptionName)
+      var outputElementInputFirst = document.querySelector('#quantity_group')
+      outputElementInputFirst.innerHTML = `<input class="quantity__input no_bulk_selection_input" type="number" name="quantity" id="Quantity-{{ section.id }}" min=`+firstminmaxvalue['min']+` max=`+firstminmaxvalue['max']+` value=`+firstminmaxvalue['min']+` step=1 onkeydown="return false" form="{{ product_form_id }}">`
     }else{
       console.log('---This product does not have Group---');
-      GetNoBulkQuantitySelector()
+      var outputElementInputFirst = document.querySelector('#quantity_group')
+      outputElementInputFirst.innerHTML = `<input class="quantity__input no_bulk_selection_input" type="number" name="quantity" id="Quantity-{{ section.id }}" min=1 max=10 value=1 step=1 onkeydown="return false" form="{{ product_form_id }}">`
     }
+   
+    
   });
   
   radioInputs.forEach((input) => {
-    input.addEventListener('change', (event) => {         
+    input.addEventListener('change', (event) => {
+      console.log('heyy');  
+         
       // get the selected radio input value
-      const selectedRadioName = event.target.name;
-
-      if(selectedRadioName == 'group'){
-        const selectedValue = event.target.value;
-        // update the content of an HTML element with the selected value
-        const outputElement = document.querySelector('#quantity_group');
-        var minmaxvalue = extractMinMax(selectedValue)
-        console.log(minmaxvalue['min'],minmaxvalue['max'])
-        //Removing first state of quantity selector input 
-        const outputElementInput = document.querySelector('.no_bulk_selection_input')
-        if(outputElementInput!==null){
-          outputElementInput.remove()
-        }
-        //Adding quantity selector that maps min and max according to the group 
-        outputElement.innerHTML  =  QuantityInputTemplate(minmaxvalue['min'],minmaxvalue['max'],minmaxvalue['min'],1,'bulk_quantity_input','red');
+      const selectedValue = event.target.value;
+      // update the content of an HTML element with the selected value
+      const outputElement = document.querySelector('#quantity_group');
+      var minmaxvalue = extractMinMax(selectedValue)
+      console.log(minmaxvalue['min'],minmaxvalue['max'])
+      //Removing first state of quantity selector input
+      const outputElementInput = document.querySelector('.no_bulk_selection_input')
+      if(outputElementInput!==null){
+        outputElementInput.remove()
       }
-      
+      //Adding quantity selector that maps min and max according to the group
+      outputElement.innerHTML  =  `<input class="quantity__input bulk_quantity_input" type="number" name="quantity" id="Quantity-{{ section.id }}" min=`+parseInt(minmaxvalue['min'])+` max=`+parseInt(minmaxvalue['max'])+` value=`+parseInt(minmaxvalue['min'])+` step=1 onkeydown="return false" form="{{ product_form_id }}">`;
     });
   });
 
@@ -1386,70 +1312,21 @@
     plusButton.addEventListener('click', () => {
       quantityInput = document.getElementById("Quantity-{{ section.id }}");
       // Get current quantity value and increment it
-      console.log('cirr =====', quantityInput['min'],quantityInput['max'])
-        if(quantityInput){
-          var currentValue = quantityInput.value|0;
-          console.log('currentValue: ',currentValue)
-          if(currentValue < quantityInput['max'] && currentValue >= quantityInput['min']){
-            var newValue = currentValue + 1;
-            console.log('plus ',currentValue,newValue)
-            if(document.querySelector(".quantity__input")){
-              document.querySelector(".quantity__input").value = newValue;
-              }
-            }
-          }else{
-            console.log('exceeded',currentValue);
-            if(document.querySelector(".quantity__input")){
-              document.querySelector(".quantity__input").value = quantityInput['max'];
-              console.log('exceeded the limit so max value to input')
-            }
-          }
-    });
-    minusButton.addEventListener('click', () => {
-      quantityInput = document.getElementById("Quantity-{{ section.id }}");
-      // Get current quantity value and increment it
-      console.log('cirr =====', quantityInput['min'],quantityInput['max'])
-        if(quantityInput){
-          var currentValue = quantityInput.value|0;
-          console.log('currentValue: ',currentValue)
-          console.log('max: ',quantityInput['max'])
-          console.log('min: ',quantityInput['min'])
-          console.log(currentValue <= quantityInput['max'], currentValue > quantityInput['min'])
-          if(currentValue <= quantityInput['max'] && currentValue > quantityInput['min']){
-            var newValue = currentValue -1;
-            console.log('minus ',currentValue,newValue)
-            if(document.querySelector(".quantity__input")){
-              document.querySelector(".quantity__input").value = newValue;
-              }
-            }
-          }else{
-            console.log('exceeded',currentValue);
-            if(document.querySelector(".quantity__input")){
-              document.querySelector(".quantity__input").value = quantityInput['min'];
-              console.log('exceeded the limit so min value to input')
-            }
-          }
+      console.log('currentValue: ',quantityInput.value|0)
+      let currentValue = parseInt(quantityInput.value|0);
+      let newValue = currentValue + 1;
+      console.log('plus ',currentValue,newValue)
+      // Update the quantity input field with the new value
+      quantityInput.value = newValue;
+      if(document.querySelector(".bulk_quantity_input") !== null){
+        document.querySelector(".bulk_quantity_input").value = newValue;
+      }else{
+        document.querySelector(".no_bulk_selection_input").value = newValue;
+      }
+      
     });
 
-
-    const quantityInputField = document.getElementById("Quantity-{{ section.id }}");
-    // Get the input element
     
-      const inputA = document.getElementById('Quantity-{{ section.id }}');
-      if(inputA){
-        // Add an event listener for the 'input' event
-        inputA.addEventListener('input', () => {
-          // Get the new value of the input
-          const newValueA = input.value;
-          // Do something with the new value
-          console.log('New value:', newValueA);
-        });
-        }else{
-          console.log('not found dom')
-        }
-    
-   
-        
 </script>
 </section>
 
