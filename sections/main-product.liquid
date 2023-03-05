@@ -335,7 +335,6 @@
               </div>
 
 
-            {{'price'}}
             {%- when 'price' -%}
               <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
@@ -360,7 +359,6 @@
 
            
             {%- when 'description' -%}
-              {{'description'}}
               {%- if product.description != blank -%}
                 <div class="product__description rte quick-add-hidden">
                   {{ product.description }}
@@ -1059,6 +1057,7 @@
             </slider-component>
           {%- endif -%}
         </media-gallery>
+        <p>sanjeeb</p>
       </div>
     {%- endif -%}
   </div>
