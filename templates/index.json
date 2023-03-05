@@ -1,5 +1,10 @@
 {
   "sections": {
+    "efd94731-69d9-4523-8207-bd175bbae9b2": {
+      "type": "custom-megamenu",
+      "settings": {
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -59,6 +64,7 @@
     }
   },
   "order": [
+    "efd94731-69d9-4523-8207-bd175bbae9b2",
     "rich_text",
     "featured_collection"
   ]
