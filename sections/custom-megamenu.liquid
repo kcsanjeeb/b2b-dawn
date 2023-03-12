@@ -1,4 +1,101 @@
-<h1>This is a custom Megamenu</h1>
+{{ 'custom-megamenu.css' | asset_url | stylesheet_tag }}
+{{ 'base.css' | asset_url | stylesheet_tag }}
+
+<div class="menu-wrapper">
+    <div class="mainnav">
+        <ul class="menu">
+            <li><a href="#">Electronics</a>
+        
+              <div class="megadrop">
+        
+                <div class="col">
+                  <h3>Title</h3>
+                  <ul>
+                    <li><a href="#">Sub-menu 1</a>
+                    </li>
+                    <li><a href="#">Sub-menu 2</a>
+                    </li>
+                    <li><a href="#">Sub-menu 3</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <h3>Title</h3>
+                  <ul>
+                    <li><a href="#">Sub-menu 1</a>
+                    </li>
+                    <li><a href="#">Sub-menu 2</a>
+                    </li>
+                    <li><a href="#">Sub-menu 3</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <h3>Title</h3>
+                  <ul>
+                    <li><a href="#">Sub-menu 1</a>
+                    </li>
+                    <li><a href="#">Sub-menu 2</a>
+                    </li>
+                    <li><a href="#">Sub-menu 3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            
+              </li>
+            <li><a href="#">Electronics</a>
+        
+            <div class="megadrop">
+      
+              <div class="col">
+                <h3>Title</h3>
+                <ul>
+                  <li><a href="#">Sub-menu 1</a>
+                  </li>
+                  <li><a href="#">Sub-menu 2</a>
+                  </li>
+                  <li><a href="#">Sub-menu 3</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col">
+                <h3>Title</h3>
+                <ul>
+                  <li><a href="#">Sub-menu 1</a>
+                  </li>
+                  <li><a href="#">Sub-menu 2</a>
+                  </li>
+                  <li><a href="#">Sub-menu 3</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col">
+                <h3>Title</h3>
+                <ul>
+                  <li><a href="#">Sub-menu 1</a>
+                  </li>
+                  <li><a href="#">Sub-menu 2</a>
+                  </li>
+                  <li><a href="#">Sub-menu 3</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Electronics</a></li>
+            
+         
+        </ul>
+    </div>
+
+    
+
+</div>
 {% schema %}
   {
     "name": "Custom Megamenu",
